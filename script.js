@@ -7,7 +7,7 @@ function randomPicture() {
 }
 
 function random() {
-    const maximum = 140;
+    const maximum = 143;
     return Math.floor((Math.random() * maximum) + 1);
 }
 
