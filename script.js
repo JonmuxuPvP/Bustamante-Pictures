@@ -21,7 +21,7 @@ function previousPicture() {
 }
 
 function random() {
-    const maximum = 143;
+    const maximum = 142;
     return Math.floor((Math.random() * maximum) + 1);
 }
 
