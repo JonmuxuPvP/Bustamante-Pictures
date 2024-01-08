@@ -1,34 +1,46 @@
+import { Picture } from "./js/picture.js";
+
 const previous = document.getElementById("previous");
+const random = document.getElementById("random");
 const next = document.getElementById("next");
+
 const image = document.getElementById("image");
-let seenPictures = [];
 
-function randomPicture() {
-    const picture = random();
-    image.src = `./assets/${picture}.jpg`;
+const picture = new Picture(image);
 
-    seenPictures.push(picture);
+next.disabled = true;
+previous.disabled = true;
 
-    console.log(seenPictures);
-}
+random.addEventListener("click", (event) => {
+    picture.random();
+    picture.display();
 
-function previousPicture() {
-    if (seenPictures.length > 1) {
-        seenPictures.pop();
-        image.src = `./assets/${seenPictures[seenPictures.length - 1]}.jpg`;
-        console.log(seenPictures);
-    }
-}
-
-function random() {
-    const maximum = 142;
-    return Math.floor((Math.random() * maximum) + 1);
-}
+    checkButtons();
+});
 
 next.addEventListener("click", (event) => {
-    randomPicture();
+    const isNext = picture.isNext();
+
+    if (isNext) {
+        picture.next();
+        picture.display();
+    }
+
+    checkButtons();
 });
 
 previous.addEventListener("click", (event) => {
-    previousPicture();
+    const isPrevious = picture.isPrevious();
+
+    if (isPrevious) {
+        picture.previous();
+        picture.display();
+    }
+
+    checkButtons();
 });
+
+function checkButtons() {
+   next.disabled = !picture.isNext(); 
+   previous.disabled = !picture.isPrevious(); 
+}
